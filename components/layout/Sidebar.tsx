@@ -1,4 +1,10 @@
 const Sidebar = () => {
+   
+   const items =[
+    {
+        
+    }
+   ]
     return ( 
         <div></div>
      );
