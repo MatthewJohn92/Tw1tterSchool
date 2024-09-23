@@ -1,7 +1,7 @@
 import { BsBellFill, BsHouseFill } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
-import SidebarLogo from "./SidebarLogo";
 import SidebarItem from "./Sidebaritem";
+import SidebarLogo from "./SidebarLogo";
 const Sidebar = () => {
    
    const items =[
