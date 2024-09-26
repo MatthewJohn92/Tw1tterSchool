@@ -47,7 +47,7 @@ hover:bg-opacity-10
 cursor-pointer
 ">
 <Icon size={24} color ="white" />
-<p className="hidden lg:block text-white text-xl">
+<p className="hidden lg:block text-white text-xs">
 
     {label}
 </p>
