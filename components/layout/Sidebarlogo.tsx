@@ -19,7 +19,7 @@ const SidebarLogo = () => {
         hover:bg-opacity-10 
         cursor-pointer
     ">
-      <GiPickle  size={30} color="Green" />
+      <GiPickle  size={32} color="Green" />
     </div>
   );
 };
