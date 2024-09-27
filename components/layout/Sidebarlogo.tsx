@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FaXTwitter  } from "react-icons/fa6";
+import { GiPickle } from "react-icons/gi";
 
 const SidebarLogo = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const SidebarLogo = () => {
         hover:bg-opacity-10 
         cursor-pointer
     ">
-      <FaXTwitter  size={28} color="white" />
+      <GiPickle  size={30} color="Green" />
     </div>
   );
 };

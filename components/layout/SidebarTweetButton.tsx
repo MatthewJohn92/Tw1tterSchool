@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FaFeather } from "react-icons/fa";
+import { GiPickle } from "react-icons/gi";
 
 const SidebarTweetButton = () => {
   const router = useRouter();
@@ -16,13 +16,13 @@ p-4
 flex
 items-center
 justify-center
-bg-sky-500
+bg-green-800
 hover:bg-opacity-80
 transition
 cursor-pointer
 "
       >
-        <FaFeather size={24} color="white" />
+        <GiPickle size={24} color="white" />
       </div>
       <div
         className="
@@ -32,7 +32,7 @@ cursor-pointer
       px-4
       py-2
       rounded-full
-      bg-sky-500
+      bg-green-800
       hover:bg-opacity-90
       cursor-pointer
       transition
@@ -44,7 +44,7 @@ cursor-pointer
         text-center
         text-white
         text-[20px]">
-Tweet
+Pickle!
         </p>
       </div>
     </div>
