@@ -21,6 +21,23 @@ outline
 
 }) => {
     return (
+
+        /*
+  Questo componente React rappresenta un pulsante  personalizzabile.
+  Le seguenti proprietà (props) influenzano il comportamento e l'aspetto del pulsante:
+
+  1. `disabled`: se impostato su true, disabilita il pulsante, rendendolo non cliccabile e cambiandone lo stile visivo.
+  2. `onClick`: una funzione che viene eseguita quando il pulsante viene cliccato.
+  3. `fullWidth`: se true, il pulsante si estende per l'intera larghezza del contenitore; altrimenti, si adatta alla dimensione del suo contenuto.
+  4. `secondary`: se true, il pulsante assume uno stile alternativo, con sfondo bianco, testo nero e bordo nero.
+  5. `large`: se true, aumenta la dimensione del pulsante (testo più grande e più padding).
+  6. `outline`: se true, il pulsante diventa trasparente con un bordo bianco e testo bianco.
+  7. `label`: rappresenta il testo che verrà visualizzato all'interno del pulsante.
+
+  Il componente utilizza le classi CSS dinamicamente in base alle props passate, applicando stili specifici
+  (come colore di sfondo, testo, dimensioni, bordo, ecc.) per rendere il pulsante visivamente interattivo e accessibile.
+*/
+
         <button
         disabled={disabled}
         onClick={onClick}
