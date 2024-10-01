@@ -1,8 +1,22 @@
 import { useRouter } from "next/router";
 import { GiPickle } from "react-icons/gi";
 
+import useLoginModal from "@/hooks/useLoginModal";
+import useCurrentUser from "@/hooks/useCurrentUser";
+
 const SidebarTweetButton = () => {
   const router = useRouter();
+  const loginModal = useLoginModal();
+  const { data: currentUser } = useCurrentUser();
+
+  const onClick = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    router.push('/');
+  }, [loginModal, router, currentUser]);
+
   return (
     <div onClick={() => router.push("/")}>
       <div

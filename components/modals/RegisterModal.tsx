@@ -1,3 +1,16 @@
+// Questo componente React rappresenta un modale per la registrazione di un nuovo account, utilizzando Next.js e Axios per inviare i dati a un endpoint di registrazione.
+// Funzionalità principali:
+// - Utilizza gli hook personalizzati `useLoginModal` e `useRegisterModal` per gestire l'apertura e chiusura dei modali di login e registrazione.
+// - Lo stato locale è gestito con `useState` per catturare e memorizzare i campi di input: email, password, username e nome, oltre allo stato di caricamento.
+// - La funzione `onToggle` consente di passare dal modale di registrazione a quello di login, a meno che non ci sia un'operazione di registrazione in corso (controllato tramite `isLoading`).
+// - La funzione `onSubmit` invia una richiesta POST all'endpoint `/api/register` per creare un nuovo account con i dati inseriti dall'utente.
+// - Se la registrazione è completata con successo, viene mostrato un messaggio di successo con `react-hot-toast` e l'utente viene automaticamente loggato usando la funzione `signIn` di `next-auth`.
+// - In caso di errore durante la registrazione, viene mostrato un messaggio di errore.
+// - Gli input vengono disabilitati durante il caricamento per evitare invii multipli.
+// - Il componente `Modal` visualizza il modale con il titolo "Create an account", l'azione di registrazione e i contenuti per il corpo (i campi di input) e il footer (link per passare al login).
+
+
+
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useCallback, useState } from "react";
