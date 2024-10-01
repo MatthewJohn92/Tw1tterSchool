@@ -1,14 +1,98 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
+// Questo è il file di schema di Prisma, che definisce i modelli e le loro relazioni per un'applicazione che utilizza MongoDB come database.
+// Funzionalità principali dello schema:
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// 1. **Generator e datasource**:
+//    - Viene utilizzato il generatore `client` di Prisma per generare il client Prisma per interagire con il database MongoDB.
+//    - Il datasource definisce il provider del database come MongoDB, e l'URL di connessione al database è memorizzato nella variabile d'ambiente `DATABASE_URL`.
+
+// 2. **Modello User**:
+//    - Rappresenta un utente dell'applicazione.
+//    - Ogni utente ha campi opzionali come `name`, `username`, `bio`, `email`, immagini del profilo e copertina, e una password hashata (`hashedPassword`).
+//    - I campi `email` e `username` sono unici.
+//    - Il campo `followingIds` tiene traccia degli ID degli utenti seguiti, e può contenere un array di ObjectId.
+//    - L'utente ha relazioni con i modelli `Post`, `Comment` e `Notification`, rappresentando i post creati, i commenti fatti e le notifiche ricevute.
+
+// 3. **Modello Post**:
+//    - Rappresenta un post creato da un utente.
+//    - Ogni post contiene il corpo (`body`), una data di creazione e aggiornamento, e un array di ID di utenti che hanno messo "like".
+//    - Ha una relazione con un utente (`user`), che rappresenta l'autore del post, e con i commenti associati a quel post.
+//    - In caso di eliminazione di un utente, i post associati vengono eliminati a cascata grazie a `onDelete: Cascade`.
+
+// 4. **Modello Comment**:
+//    - Rappresenta un commento su un post.
+//    - Ha relazioni con un utente (l'autore del commento) e un post (a cui appartiene il commento).
+//    - In caso di eliminazione dell'utente o del post, i commenti associati vengono eliminati a cascata.
+
+// 5. **Modello Notification**:
+//    - Rappresenta una notifica per un utente.
+//    - Ogni notifica ha un corpo (`body`), un ID utente e una data di creazione.
+//    - Ha una relazione con un utente (il destinatario della notifica).
+//    - In caso di eliminazione dell'utente, le notifiche associate vengono eliminate a cascata.
+
 
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  username        String?   @unique
+  bio             String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  coverImage      String?
+  profileImage    String?
+  hashedPassword  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  followingIds    String[] @db.ObjectId
+  hasNotification Boolean?
+
+  posts         Post[]
+  comments      Comment[]
+  notifications Notification[]
+}
+
+model Post {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  body               String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  userId             String @db.ObjectId
+  likedIds           String[] @db.ObjectId
+  image              String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  comments          Comment[]
+}
+
+model Comment {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  body               String
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  userId             String @db.ObjectId
+  postId             String @db.ObjectId
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  body               String
+  userId             String @db.ObjectId
+  createdAt          DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
